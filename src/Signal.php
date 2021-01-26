@@ -1,9 +1,8 @@
 <?php
+
 namespace jigarakatidus\Signal;
 
 use mikehaertl\shellcommand\Command;
-
-error_reporting(E_ALL);
 
 class Signal {
 
@@ -40,11 +39,13 @@ class Signal {
     public function register(bool $voiceVerification = false): bool
     {
         $this->command->addArg('-u', $this->username);
+
         if($voiceVerification){
             $this->command->addArg('-v', null);
         }
+
         $this->command->addArg('register');
-        echo "Register command: "  . $this->command->getExecCommand();
+
         return $this->command->execute();
     }
 
@@ -57,7 +58,7 @@ class Signal {
     public function unregister(): bool
     {
         $this->command->addArg('unregister', null);
-        echo $this->command->getExecCommand() . "\n";
+
         return $this->command->execute();
     }
 
@@ -71,12 +72,14 @@ class Signal {
     public function getUserStatus(array $recipients): string
     {
         $formatArg = $this->format == self::FORMAT_JSON ? '--'.self::FORMAT_JSON : '';
+
         $this->command->addArg('getUserStatus', $recipients);
+
         if(!empty($formatArg)){
             $this->command->addArg($formatArg, null, false);
         }
-        echo $this->command->getExecCommand() . "\n";
         $this->command->execute();
+
         return $this->command->getOutput(false);
     }
 
@@ -89,7 +92,7 @@ class Signal {
     {
 
         $this->command->addArg('verify' . $code);
-        echo "Verify command: "  . $this->command->getExecCommand();
+
         return $this->command->execute();
     }
 
@@ -103,11 +106,13 @@ class Signal {
     public function send(array $recipients, string $message, string $groupId = null): bool
     {
         $this->command->addArg('send', $recipients);
+
         $this->command->addArg('-m', $message);
+
         if($groupId){
             $this->command->addArg('-g', $groupId);
         }
-        echo "Send command: "  . $this->command->getExecCommand() . "\n";
+
         return $this->command->execute();
     }
 
@@ -123,14 +128,17 @@ class Signal {
     public function updateProfile(string $name, string $avatarPath = null, bool $removeAvatar = false): bool
     {
         $this->command->addArg('updateProfile', null);
+
         $this->command->addArg('--name', $name);
+
         if($avatarPath){
             $this->command->addArg('--avatar', $avatarPath);
         }
+
         if($removeAvatar){
             $this->command->addArg('--removeAvatar', null);
         }
-        echo "updateProfile command: "  . $this->command->getExecCommand() . "\n";
+
         return $this->command->execute();
     }
 
@@ -145,7 +153,9 @@ class Signal {
     public function link(string $name = 'cli'): string
     {
         $this->command->nonBlockingMode = false;
+
         $this->command->addArg('link', null);
+
         if($name) {
             $this->command->addArg('-n', $name);
         }
@@ -154,7 +164,7 @@ class Signal {
         $randFile = rand() . time() . '.device';
         $this->command->addArg(' > /tmp/'.$randFile.' 2>&1 &', null, false); // Ugly hack!
         sleep(1); // wait for file to get populated
-        echo "Link command: "  . $this->command->getExecCommand() . "\n";
+
         $this->command->execute();
         return file_get_contents($randFile);
     }
@@ -169,7 +179,7 @@ class Signal {
     public function addDevice(string $uri): bool
     {
         $this->command->addArg('--uri', $uri);
-        echo "addDevice command: "  . $this->command->getExecCommand() . "\n";
+
         return $this->command->execute();
     }
 
@@ -180,9 +190,11 @@ class Signal {
     public function listDevices(): string
     {
         $this->command->addArg('listDevices', null);
-        // This command doesn't support format
-        echo "listDevices command: "  . $this->command->getExecCommand() . "\n";
+
+        // This command doesn't support JSON format
+
         $this->command->execute();
+
         return $this->command->getOutput();
     }
 
@@ -194,8 +206,9 @@ class Signal {
     public function removeDevice(int $deviceId): bool
     {
         $this->command->addArg('removeDevice', null);
+
         $this->command->addArg('-d', $deviceId);
-        echo "removeDevice command: "  . $this->command->getExecCommand() . "\n";
+
         return $this->command->execute();
     }
 
@@ -207,7 +220,7 @@ class Signal {
     public function updateAccount(): bool
     {
         $this->command->addArg('updateAccount', null);
-        echo "updateAccount command: "  . $this->command->getExecCommand() . "\n";
+
         return $this->command->execute();
     }
 
@@ -223,19 +236,23 @@ class Signal {
     private function _createOrUpdateGroup(string $name = null, array $members = [], string $avatarPath = null, string $groupId = null): bool
     {
         $this->command->addArg('updateGroup', null);
+
         if(!empty($groupId)){
             $this->command->addArg('-g', $groupId);
         }
+
         if($name){
             $this->command->addArg('-n', $name);
         }
+
         if(!empty($members)){
             $this->command->addArg('-m', $members);
         }
+
         if(!empty($avatarPath)){
             $this->command->addArg('-a', $avatarPath);
         }
-        echo "updateGroup command: "  . $this->command->getExecCommand() . "\n";
+
         return $this->command->execute();
     }
 
@@ -268,9 +285,11 @@ class Signal {
     public function listGroups(): string
     {
         $this->command->addArg('-o', $this->format);
+
         $this->command->addArg('listGroups', null);
-        echo "listGroup command: "  . $this->command->getExecCommand() . "\n";
+
         $this->command->execute();
+
         return $this->command->getOutput();
     }
 
@@ -283,8 +302,9 @@ class Signal {
     public function joinGroup(string $uri): bool
     {
         $this->command->addArg('joinGroup', null);
+
         $this->command->addArg('--uri', $uri);
-        echo "joinGroup command: "  . $this->command->getExecCommand() . "\n";
+
         return $this->command->execute();
     }
 
@@ -297,8 +317,9 @@ class Signal {
     public function quitGroup(string $groupId): bool
     {
         $this->command->addArg('quitGroup', null);
+
         $this->command->addArg('-g', $groupId);
-        echo "quitGroup command: "  . $this->command->getExecCommand() . "\n";
+
         return $this->command->execute();
     }
 
@@ -312,10 +333,13 @@ class Signal {
     public function receive(int $timeout = 5) : string
     {
         $this->command->addArg('-o', $this->format);
-        $this->command->addArg('-t', $timeout);
+
         $this->command->addArg('receive', null);
-        echo "receive command: "  . $this->command->getExecCommand() . "\n";
+
+        $this->command->addArg('-t', $timeout);
+
         $this->command->execute();
+
         return $this->command->getOutput();
     }
 
