@@ -2,10 +2,15 @@
 
 php-signal is a slim PHP wrapper around [signal-cli](https://github.com/AsamK/signal-cli)
 
-**Note:** 
-- This works with [signal-cli 0.7.4](https://github.com/AsamK/signal-cli/releases/tag/v0.7.4)
-- I have tested this with PHP 7.3
-- In case of an issue, please raise an issue and if possible a PR.
+##Features:
+- Send messages to individuals, groups.
+- Link to Master Device (Smartphone)
+- Manage Groups
+- Manage Profile
+- Manage Device
+- Receive Messages (Not as Daemon)
+- Check if Number exist on Signal Server
+- Register, Verify and Unregister Number
 
 ## How to Install signal-cli
 
@@ -84,9 +89,12 @@ More details from command can be fetched. eg:
     $client->getCommand()->getError();
     $client->getCommand()->getExitCode();
 
-## TODO
+## Testing
+- This works with [signal-cli 0.7.4](https://github.com/AsamK/signal-cli/releases/tag/v0.7.4)
+- Tested on PHP 7.3
 
-- Tests
+## TODO
+- Unit Tests
 - Better handling to link to a device
 
 ## License
