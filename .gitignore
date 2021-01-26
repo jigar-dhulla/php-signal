@@ -1,0 +1,4 @@
+vendor/
+.idea/
+src/troubleshoot.php
+src/index.php
