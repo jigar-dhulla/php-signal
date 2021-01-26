@@ -1,6 +1,6 @@
 <?php
 
-namespace jigarakatidus\Signal;
+namespace jigarakatidus;
 
 use mikehaertl\shellcommand\Command;
 
