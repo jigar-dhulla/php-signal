@@ -19,7 +19,7 @@ Please refer official [Installation Doc](https://github.com/AsamK/signal-cli#ins
 **Note**: Please make sure to keep .so|.dylib library in same directory as the binary
 ## Installation
 
-    composer require jigarakatidus/php-signal
+    composer require jigarakatidus/php-signal dev-main
 
 ## Usage
 
