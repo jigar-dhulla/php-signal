@@ -34,6 +34,7 @@ class Signal {
      * Register a phone number with SMS or voice verification. Use the verify command to complete the verification.
      * Default verify with SMS
      * @param bool $voiceVerification The verification should be done over voice, not SMS.
+     * @param string $captcha - from https://signalcaptchas.org/registration/generate.html
      * @return bool
      */
     public function register(bool $voiceVerification = false): bool
@@ -45,6 +46,10 @@ class Signal {
         }
 
         $this->command->addArg('register');
+
+        if(!empty($captcha)){
+            $this->command->addArg('--captcha', $captcha);
+        }
 
         return $this->command->execute();
     }
