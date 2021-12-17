@@ -2,7 +2,8 @@
 
 php-signal is a slim PHP wrapper around [signal-cli](https://github.com/AsamK/signal-cli)
 
-##Features:
+## Features:
+
 - Send messages to individuals, groups.
 - Link to Master Device (Smartphone)
 - Manage Groups
