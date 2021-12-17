@@ -90,7 +90,7 @@ More details from command can be fetched. eg:
     $client->getCommand()->getExitCode();
 
 ## Testing
-- This works with [signal-cli 0.7.4](https://github.com/AsamK/signal-cli/releases/tag/v0.7.4)
+- This works with [signal-cli 0.9.2](https://github.com/AsamK/signal-cli/releases/tag/v0.9.2)
 - Tested on PHP 7.3
 
 ## TODO
