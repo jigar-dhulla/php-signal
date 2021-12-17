@@ -37,7 +37,7 @@ class Signal {
      * @param string $captcha - from https://signalcaptchas.org/registration/generate.html
      * @return bool
      */
-    public function register(bool $voiceVerification = false): bool
+    public function register(bool $voiceVerification = false, string $captcha): bool
     {
         $this->command->addArg('-u', $this->username);
 
