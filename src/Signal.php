@@ -71,19 +71,13 @@ class Signal {
     /**
      * Uses a list of phone numbers to determine the statuses of those users.
      * Shows if they are registered on the Signal Servers or not.
-     * In json mode this is outputted as a list of objects.
      * @param array $recipients One or more numbers to check.
      * @return string
      */
     public function getUserStatus(array $recipients): string
     {
-        $formatArg = $this->format == self::FORMAT_JSON ? '--'.self::FORMAT_JSON : '';
-
         $this->command->addArg('getUserStatus', $recipients);
 
-        if(!empty($formatArg)){
-            $this->command->addArg($formatArg, null, false);
-        }
         $this->command->execute();
 
         return $this->command->getOutput(false);
