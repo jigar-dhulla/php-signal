@@ -40,11 +40,12 @@ class Signal {
     {
         $this->command->addArg('-u', $this->username);
 
+        $this->command->addArg('register');
+
         if($voiceVerification){
-            $this->command->addArg('-v', null);
+            $this->command->addArg('--voice', null);
         }
 
-        $this->command->addArg('register');
 
         return $this->command->execute();
     }
