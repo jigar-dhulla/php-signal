@@ -1,3 +1,6 @@
+# IMPORTANT
+This is no longer actively maintained. If someone is actively maintaing the fork, I will link the same here and archive this.
+
 # php-signal
 
 php-signal is a slim PHP wrapper around [signal-cli](https://github.com/AsamK/signal-cli)
